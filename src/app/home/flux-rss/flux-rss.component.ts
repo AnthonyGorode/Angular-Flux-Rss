@@ -12,7 +12,7 @@ import { Rss } from 'src/app/models/rss.interface';
 @Component({
   selector: 'app-flux-rss',
   templateUrl: './flux-rss.component.html',
-  styleUrls: ['./flux-rss.component.css']
+  styleUrls: ['./flux-rss.component.scss']
 })
 export class FluxRssComponent implements OnInit, OnDestroy, OnChanges {
   
