@@ -1,0 +1,80 @@
+<span [ngSwitch]="currentTemplate">
+<div *ngSwitchCase="1"> <!-- two columns -->
+  <div id='block-content' class='row'>
+
+    <div id='content-odd' class='col-lg-6 col-md-12'>
+      <div *ngFor="let item of datasDoubleOld" class="card bg-light mt-3 ml-1 mr-1 card_link clearfix" style="max-width: 36rem;">
+        <a href="{{ item.link }}" target="_blank">
+            <h1 class="card-header p-2 title_article">{{ feed.title }}</h1>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row mb-2">
+                        <img 
+                            class="col-sm-6 img_article"
+                            src="{{ item.enclosure.link }}" 
+                            alt="image"
+                        >
+                        <h3 class="card-title text-center col-sm">{{ item.title }}</h3>
+                    </div>    
+                </div>
+                <span class="ml-3"><i>Article du {{ item.pubDate | date:'d MMMM y' }}</i></span>
+                <p style="font-size:17px" class="card-text p-2 description_title" [innerHtml]="item.description"></p>
+            </div>
+        </a>
+      </div>
+    </div>
+
+    <div id="content-even" class="col-lg-6 col-md">
+      <div *ngFor="let item of datasDoubleEven" class="card bg-light mt-3 ml-1 mr-1 card_link clearfix" style="max-width: 36rem;">
+        <a href="{{ item.link }}" target="_blank">
+            <h1 class="card-header p-2 title_article">{{ feed.title }}</h1>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row mb-2">
+                        <img 
+                            class="col-sm-6 img_article"
+                            src="{{ item.enclosure.link }}" 
+                            alt="image"
+                        >
+                        <h3 class="card-title text-center col-sm">{{ item.title }}</h3>
+                    </div>    
+                </div>
+                <span class="ml-3"><i>Article du {{ item.pubDate | date:'d MMMM y' }}</i></span>
+                <p style="font-size:17px" class="card-text p-2 description_title" [innerHtml]="item.description"></p>
+            </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngSwitchCase="2"> <!-- many columns -->
+  <div id='block-multiple' class='row d-flex flex-wrap'>
+    <div *ngFor="let item of items" class="card bg-light card_link mb-2 m-0 m-md-3 p-1 col-12 col-sm-6 col-md-4 col-xl-2">
+      <a class="thumbnail" href="{{ item.link }}" target="_blank">
+          <img src="{{ item.enclosure.link }}" alt="image" style="height:initial!important;width:100%">
+          <div class="caption">
+              <h3 class="card-title text-center col-sm title_article" style="font-size:medium">{{ item.title }}</h3>
+              <span class="ml-3 date_mult_col"><i>Article du {{ item.pubDate | date:'d MMMM y' }}</i></span>
+          </div>
+      </a>
+      <h3 class="p-2 title_article">{{ feed.title }}</h3>
+    </div>
+  </div>
+
+</div>
+<div *ngSwitchDefault> <!-- default -->
+
+  <div *ngFor="let item of items" class="card_one_column card_link mt-3">
+    <a href="{{ item.link }}" target="_blank">
+        <div class="">
+            <img class="" src="{{ item.enclosure.link }}" alt="image" style="width: 150px;height:150px;float: left;border-radius:50px;margin-right:5%">
+            <h3 class=""><strong>{{ item.title }}</strong></h3>
+            <p class="lead" style="margin-left: 22%" [innerHtml]="item.description">           
+        </div>
+        <span class="ml-3"><i>Article du {{ item.pubDate | date:'d MMMM y' }}</i></span>
+    </a>
+  </div>
+
+</div>
+</span>
