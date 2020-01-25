@@ -3,22 +3,61 @@
       <div class="col-lg-3 col-md-4 col-12">
           <div id="list-rss" class="list-group pt-2">
             <li 
-              *ngFor="let rss of listRss | async"
+              *ngFor="let rss of listRss"
               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
               style="cursor:pointer" 
-              (click)="apiRssJson(rss.url,false,rss.key)"
-            >{{ rss.name }}
+              (click)="apiRssJson(rss.feed.url,false,rss.feed.key)"
+            >{{ rss.feed.name }}
+            <span class="badge badge-danger badge-pill" (click)="deleteRss($event,rss.id)">X</span> 
           </div>
-          <div id="form-create">
+          <form id="form-create" [formGroup]="rssForm" (ngSubmit)="addNewRss()">
             <div class="form-group mt-4">
-                <input type="text" class="form-control" id="name_news" placeholder="Nom du media" required>
+                <input 
+                  formControlName="name"
+                  type="text" 
+                  class="form-control" 
+                  id="name_news" 
+                  placeholder="Nom du media"
+                  [ngClass]="{
+                    'is-invalid': rssForm.get('name').invalid && rssForm.get('name').touched,
+                    'is-valid': rssForm.get('name').valid && rssForm.get('name').touched,
+                    'form-control': true
+                  }"
+                >
+                <span
+                  class="text-danger"
+                  *ngIf="rssForm.get('name').invalid && rssForm.get('name').touched"
+                >Champs invalide</span>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="url_rss" placeholder="Url du flux rss">
+                <input 
+                  formControlName="url"
+                  type="text" 
+                  id="url_rss" 
+                  placeholder="Url du flux rss"
+                  [ngClass]="{
+                    'is-invalid': rssForm.pending && rssForm.get('url').touched,
+                    'is-invalid': rssForm.get('url').invalid && rssForm.get('url').touched,
+                    'is-valid': rssForm.get('url').valid && rssForm.get('url').touched,
+                    'form-control': true
+                  }"
+                >
+                <span
+                  class="text-danger"
+                  *ngIf="rssForm.get('url').invalid && rssForm.get('url').touched"
+                >Champ invalide</span>
+                <span
+                  class="text-danger"
+                  *ngIf="rssForm.pending && rssForm.get('url').touched"
+                >Url invalide</span>
+                <!-- <span
+                  class="text-danger"
+                  *ngIf="rssForm.get('url').errors && rssForm.get('url').errors.urlIsInvalid && rssForm.get('url').touched"
+                >Champs invalide</span> -->
                 <div class="invalid-feedback pl-4"></div>
             </div>
-            <button type="button" class="btn btn-primary btn-lg" onclick=addFluxRss()>AJOUTER</button>
-          </div>
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="rssForm.invalid || rssForm.pending">AJOUTER</button>
+          </form>
       </div>
       
       <div id="block-article" class="col-lg-9 col-md-8 container">

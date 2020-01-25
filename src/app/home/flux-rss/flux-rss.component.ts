@@ -1,5 +1,5 @@
-import { Feed } from './../../models/feed.interface';
-import { Rss2jsonService } from './../../services/rss2json.service';
+import { Feed } from '../../models/rss-model/feed.interface';
+import { Rss2jsonService } from '../../services/rss2json-service/rss2json.service';
 import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { Rss } from 'src/app/models/rss.interface';
+import { Rss } from 'src/app/models/rss-model/rss.interface';
 
 @Component({
   selector: 'app-flux-rss',

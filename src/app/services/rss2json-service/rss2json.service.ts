@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Rss } from '../models/rss.interface';
 import { environment } from 'src/environments/environment';
-import { MainFeed } from '../models/main-feed.interface';
+import { MainFeed } from '../../models/rss-model/main-feed.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +15,14 @@ export class Rss2jsonService {
   constructor(
     private http: HttpClient
   ) { }
+
+  /**
+   * this method check if this url is a valid rss feed
+   * @param url Rss feed url
+   */
+  testUrl(url: string): Observable<MainFeed | any> {
+    return this.http.get<MainFeed>(this.rssToJsonServiceBaseUrl + url) 
+  }
 
   getFeedContent(url: string): Observable<MainFeed> {
     return this.http.get<MainFeed>(this.rssToJsonServiceBaseUrl + url)
